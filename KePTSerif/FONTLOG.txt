@@ -1,0 +1,58 @@
+FONTLOG for the KePT Serif fonts
+================================
+
+This file provides detailed information on the KePT Serif Font Software.
+This information should be distributed along with the KePT Serif fonts
+and any derivative works.
+
+Basic Font Information
+----------------------
+
+KePT Serif is balkan enhancement of PT Serif.
+
+PT Serif is a universal type family designed for use together with PT Sans 
+released earlier. PT Serif coordinates with PT Sans on metrics, proportions, 
+weights and design. It consists of six styles: regular and bold weights 
+with corresponding italics form a standard computer font family; 
+two caption styles (regular and italic) are for texts of small point sizes. 
+The letterforms are distinguished by large x-height, modest stroke contrast, 
+robust wedge-like serifs, and triangular terminals. Due to these features 
+he face can be qualified as matched to modern trends of type design and of 
+enhanced legibility. Mentioned characteristics beside conventional use in 
+business applications and printed stuff make the fonts quite useable for 
+advertising and display typography.
+
+Each font next to standard Latin and Cyrillic character sets contains 
+alphabet glyphs of title languages of the national republics of 
+Russian Federation and support the most of the languages of neighboring 
+countries. The fonts were developed and released by ParaType in 2010 with 
+financial support from Federal Agency of Print and Mass Communications of 
+Russian Federation as a second part of the project «Public Type of 
+Russian Federation». Design - Alexandra Korolkova with assistance of 
+Olga Umpeleva and supervision of Vladimir Yefimov.
+
+ChangeLog
+---------
+
+06 May 2011 (Mitaka) KePT Serif, version 1.0
+ - Added Small and Capital Cyrillic I and Ie with Grave
+ - Released as "KePT Serif"
+
+14 Dec 2010 (From ParaType: A.Korolkova, O.Umpeleva, V.Yefimov) PT Serif, version 1.000
+ - Initial release
+
+Acknowledgements
+----------------
+
+If you make modifications be sure to add your name (N), email (E), web-address
+(if you have one) (W) and description (D). This list is sorted by last name 
+in alphabetical order.
+
+N: A.Korolkova (with assistance of O.Umpeleva and supervision of V.Yefimov)
+W: http://www.paratype.com/help/designers/
+D: Designer - original Roman and Cyrillic PT Serif glyphs
+
+N: Mitaka Taka
+E: mitakataka@mail.bg
+W: http://code.google.com/u/mitakataka@mail.bg
+D: Contributor - Cyrillic I and Ie with grave needed for Bulgarian and Macedonian Languages

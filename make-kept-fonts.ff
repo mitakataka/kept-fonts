@@ -1,0 +1,178 @@
+#!/usr/bin/fontforge
+# Adds Bulgarian and Macedonian cyrillic igrave and egrave to PT fonts ;)
+# If there is 'out' subdirectory - new fonts will be written there by default...
+
+newsuperfamily  = "KePT"; //The default new font superfamily name
+version = "1.1"; //After releasing new font version - change version to the next version number
+newcopyholder = "Mitaka";
+projecturl = "http://kept-fonts.googlecode.com"; //"mitakataka@mail.bg"
+eol = Strsub("$\n",1,2); //End Of Line
+
+
+# If there is 'out' subdirectory - the new fonts will be written there by default...
+outdir = "";
+if ( FileAccess("out") == 0 ) //If 'out' directory exists
+	outdir = "out/"; 
+endif
+
+if ( $argc==1 ) //If invoked without any arguments
+	Print();
+	Print("Missing file operand!");
+	Print("Try 'make-kept-fonts.ff --help' for more information");
+	return(1);
+endif
+
+s = 0; // Number of saved & generated fonts
+i = 1; // Current operand number
+while ( i < $argc )
+	if ( $argv[i]=="-n" || $argv[i]=="--name" )
+		i = 1 + 1;
+		if ( i < $argc )
+			newsuperfamily = $argv[i]; //New font family name
+		endif
+	elseif ( $argv[i]=="-v" || $argv[i]=="--version" )
+		i = i + 1;
+		if ( i < $argc )
+			version = $argv[i]; //New (sub)version. Two  digits normally
+		endif        
+	elseif ( $argv[i]=="-o" || $argv[i]=="--outdir" )
+		i = i + 1;
+		if ( i < $argc && FileAccess($argv[i]) == 0 )
+			outdir = $argv[i]+"/"; //New output subdirectory. Must exist 
+		endif
+	elseif ( $argv[i]=="-h" || $argv[i]=="--help" )	
+		Print(" \nUsage: make-kept-fonts.ff [OPTION]... [FILE]...");
+		Print("Adds Bulgarian & Macedonian accented letters to PT fonts");
+		Print("and saves & generates font family named 'kePT' by default.\n");
+		Print("-n, --name           new font family name. 'kePT' name is default");
+		Print("-v, --version        new font (sub)version; two digits normally");
+		Print("-o, --outdir         subdirectory to save new fonts. 'out' is default if exists");
+		Print("-h, --help           display this help and exit");
+		Print("    --usage          display short usage message and exit");
+		Print("There must be a space between option name and option itself...");
+		return(0);
+	elseif ( $argv[i]=="--usage" )	
+		Print(" \nUsage: make-kept-fonts.ff [-n STRING] [-v NUMBER] [-o DIRECTORY] [-h]");
+		Print("                          [--name STRING] [--version NUMBER] [--help]");
+		Print("                          [--outdir DIRECTORY] [--usage] [FILE]...\n");
+		Print("There must be a space between option name and option itself...");
+		return(0);
+	elseif ( Strstr($argv[i],"-")==0 )
+		err=$argv[i]+" is invalid option or there must be a space between option name and option itself.";
+		Print(" \n"+err);
+		return(1);
+	elseif ( $argv[i]:e=="ttf" )
+		Open($argv[i]); //Open Font
+
+		if ( Strstr($fontname,"PT")!=0 ) //If it's not a PT font
+			Print (" \nError! "+$argv[i]+" is not a PT font!!!\n");
+		else // If it's a PT font
+
+			# Make New PS Family Name (deletes spaces)
+			newpsfamily = newsuperfamily;
+			pos = Strstr(newpsfamily,' ');
+			while ( pos>-1 )
+				newpsfamily = Strsub(newpsfamily,0,pos) + Strsub(newpsfamily,pos+1);
+				pos = Strstr(newpsfamily,' ');
+			endloop
+
+			# Make New Font Information
+			newfontname = newpsfamily + Strsub($fontname,2);
+			familynametail = Strsub($familyname,3);
+			newfamilyname = newsuperfamily+' '+familynametail;
+			newfullname = newsuperfamily + Strsub($fullname,2);
+			
+			pos = Strstr(familynametail,' ');
+			if ( pos==-1 ) // If there is no space after second word in family name - get to the end
+				pos = Strlen(familynametail); 
+			endif
+			familynametail = Strsub(familynametail,0,pos);
+			newmainfamily = newsuperfamily+' '+familynametail;
+
+			copyrightaddition1 = "Copyright © 2011 "+newcopyholder+" ("+projecturl+").";
+			copyrightaddition2 = "Copyright (c) 2011, "+newcopyholder+" ("+projecturl+").";
+			newcopyright = $copyright+" \n"+copyrightaddition1;
+			olddescriptor= GetTTFName(0x409, 10); //Get Old Font Descriptor
+			newdescriptor= newmainfamily+" is balkan enhancement of PT "+familynametail+\
+					". \n\n"+olddescriptor;
+
+			# Make New License
+			license = GetTTFName(0x409, 13); //Get Font License
+			pos = Strstr(license, "This Font Software is licensed under the Open Font License");
+			previouscopyright2 = Strsub(license,0,pos);
+			license = Strsub(license,pos-1);
+			pos = Strrstr(previouscopyright2, ".");
+			previouscopyright2 = Strsub(previouscopyright2,0,pos+1);
+			newlicense = previouscopyright2+" \n\n\n"+copyrightaddition2+" \n\n"+license;
+
+			# Make New Font Version
+			newfontversion = version;
+/*			lastdigitpos = -1;	
+			j = 48;	//From "0"
+			while (j<=57) //To "9"
+				curdigitpos = Strrstr($fontversion, Chr(j));
+				if ( curdigitpos > lastdigitpos)
+					lastdigitpos = curdigitpos;
+				endif
+				j = j + 1;
+			endloop
+			newfontversion = Strsub($fontversion,0,lastdigitpos+1)+"."+version;		
+*/	
+			# Change Font Information
+			SetFontNames(newfontname, newfamilyname, newfullname, $weight, newcopyright, newfontversion);
+			SetTTFName(0x409, 3, newcopyholder+": "+newfullname+": "+newfontversion); //Set UniqueID
+			SetTTFName(0x409, 5, "Version "+newfontversion); //Set 'Version'
+			SetTTFName(0x409, 18, newfullname); //Set 'Compatible Full'
+			SetTTFName(0x409, 10, newdescriptor); //Set New Font Descriptor
+			SetTTFName(0x409, 11, projecturl); //Set Font Vendor = Project Website
+			SetTTFName(0x409, 13, newlicense); //Set Renovated Font License
+
+			# Add Bulgarian & Macedonian Accented Letters
+			SetPrefs("CharCenterHighest",0); //Do not set accent to the top of letter
+			# Make 'Ѐ'
+			Select("afii10022");  //CYRILLIC CAPITAL LETTER IE	
+			CopyReference();
+			Select("uni0400"); //CYRILLIC CAPITAL LETTER IE WITH GRAVE
+			Paste();
+			AddAccent("uniF6CE",0x100); //Add grave for capital letters in PT font
+
+			# Make 'Ѝ'
+			Select("afii10026");  //CYRILLIC CAPITAL LETTER I	
+			CopyReference();
+			Select("uni040D"); //CYRILLIC CAPITAL LETTER I WITH GRAVE
+			Paste();
+			AddAccent("uniF6CE",0x100); //Add grave for capital letters in PT font
+	
+			# Make 'ѐ'
+			Select("afii10070"); //CYRILLIC SMALL LETTER IE		
+			CopyReference();
+			Select(0u450); //CYRILLIC SMALL LETTER IE WITH GRAVE
+			Paste();
+			AddAccent("grave",0x100); //Add grave for small letters in PT font
+
+			# Make 'ѝ'
+			Select("afii10074"); //CYRILLIC SMALL LETTER I		
+			CopyReference();
+			Select(0u45d); //CYRILLIC SMALL LETTER I WITH GRAVE
+			Paste();
+			AddAccent("grave",0x100); //Add grave for small letters in PT font
+
+			# AutoHint & AtoInstruct
+			//SelectAll();
+			//AutoHint();
+			//AutoInstr();
+
+			# Save & Generate The New Font
+			Save(outdir+newfontname+".sfd");
+			Generate(outdir+newfontname+".ttf");
+			Print(" \n"+newfontname+" saved & generated! \n ");
+			s = s + 1;
+		endif
+	endif
+	i = i + 1;   
+endloop
+
+if ( s>0 )
+	Print("Totaly "+s+" fonts saved & generated.");
+endif
+

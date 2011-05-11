@@ -157,6 +157,23 @@ while ( i < $argc )
 			Paste();
 			AddAccent("grave",0x100); //Add grave for small letters in PT font
 
+			# Make Combining Grave
+			Select("o");
+			owidth = GlyphInfo("Width");
+			Select("grave");
+			CopyReference();
+			gwidth = GlyphInfo("Width");
+			Select("gravecomb");
+			Paste();
+			if ( newfontname=="KePTSans-Italic" || newfontname == "KePTSans-BoldItalic")
+				Move(-owidth/2-gwidth-gwidth/4, 0); //Ad hoc
+			elseif ( newfontname=="KePTSans-Regular" || newfontname == "KePTSans-Bold")
+				Move(-(owidth+gwidth)/2, 0); //Ad hoc
+			else
+				Move(-(owidth+gwidth)/2-gwidth/8, 0); //Ad hoc
+			endif
+			SetWidth(0);
+
 			# AutoHint & AtoInstruct
 			//SelectAll();
 			//AutoHint();

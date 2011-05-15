@@ -7,7 +7,7 @@ version = "1.1"; //After releasing new font version - change version to the next
 newcopyholder = "Mitaka";
 projecturl = "http://kept-fonts.googlecode.com"; //"mitakataka@mail.bg"
 eol = Strsub("$\n",1,2); //End Of Line
-
+webfonts = 0;
 
 # If there is 'out' subdirectory - the new fonts will be written there by default...
 outdir = "";
@@ -57,6 +57,8 @@ while ( i < $argc )
 		Print("                          [--outdir DIRECTORY] [--usage] [FILE]...\n");
 		Print("There must be a space between option name and option itself...");
 		return(0);
+	elseif ( $argv[i]=="-w" || $argv[i]=="--webfonts" )
+		webfonts = 1;
 	elseif ( Strstr($argv[i],"-")==0 )
 		err=$argv[i]+" is invalid option or there must be a space between option name and option itself.";
 		Print(" \n"+err);
@@ -196,6 +198,10 @@ while ( i < $argc )
 			# Save & Generate The New Font
 			Save(outdir+newfontname+".sfd");
 			Generate(outdir+newfontname+".ttf");
+			if ( webfonts )
+				Generate(outdir+newfontname+".woff");
+				Generate(outdir+newfontname+".svg");
+			endif
 			Print(" \n"+newfontname+" saved & generated! \n ");
 			s = s + 1;
 		endif
@@ -203,7 +209,7 @@ while ( i < $argc )
 	i = i + 1;   
 endloop
 
-if ( s>0 )
+if ( s>1 ) //Only if more fonts are saved, because message is confusing in 'make' script
 	Print("Totaly "+s+" fonts saved & generated.");
 endif
 

@@ -18,10 +18,10 @@ ttf-sans: $(TTFSANS)
 ttf-serif: $(TTFSERIF)
 
 webfonts-sans: OPT=--webfonts
-webfonts-sans: clean ttf-sans
+webfonts-sans: ttf-sans 
 
 webfonts-serif: OPT=--webfonts
-webfonts-serif: clean ttf-serif
+webfonts-serif: ttf-serif
 
 webfonts: OPT=--webfonts
 webfonts: webfonts-sans webfonts-serif
@@ -134,12 +134,38 @@ dist: dist-web
 
 .PHONY: dist dist-web dist-ttf dist-sans-web dist-serif-web dist-sans-ttf dist-serif-ttf all
 
+.PHONY: clean ttfclean distclean
+
 clean:
 	if [ -f KePTSans-Regular.ttf ]; then rm $(TTFSANS) $(TTFSANS:.ttf=.sfd); fi
 	if [ -f KePTSerif-Regular.ttf ]; then rm $(TTFSERIF) $(TTFSERIF:.ttf=.sfd); fi
 	if [ -f KePTSans-Regular.woff ]; then rm $(TTFSANS:.ttf=.woff) $(TTFSANS:.ttf=.eot) $(TTFSANS:.ttf=.svg); fi
 	if [ -f KePTSerif-Regular.woff ]; then rm $(TTFSERIF:.ttf=.woff)  $(TTFSERIF:.ttf=.eot) $(TTFSERIF:.ttf=.svg); fi
+	
+ttfclean:
+	if [ -f KePTSans-Regular.ttf ]; then rm $(TTFSANS) $(TTFSANS:.ttf=.sfd); fi
+	if [ -f KePTSerif-Regular.ttf ]; then rm $(TTFSERIF) $(TTFSERIF:.ttf=.sfd); fi	
 
 distclean: clean
 	-rm *.zip
 
+published:
+	awk -F. '{print $$1  "." $$2+1}' VERSION > NEW
+	mv NEW VERSION
+	cat VERSION
+	
+rollback:
+	awk -F. '{print $$1 "." $$2-1}' VERSION > NEW
+	mv NEW VERSION
+	cat VERSION
+		
+version-up:
+	awk -F. '{print $$1+1 "." 0}' VERSION > NEW
+	mv NEW VERSION
+	cat VERSION
+		
+version-down:
+	awk -F. '{print $$1-1 "." 0' VERSION > NEW
+	mv NEW VERSION
+	cat VERSION
+	

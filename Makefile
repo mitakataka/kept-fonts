@@ -155,7 +155,7 @@ published:
 	cat VERSION
 	
 rollback:
-	awk -F. '{print $$1 "." $$2-1}' VERSION > NEW
+	awk -F. '{if($$2>0) print $$1 "." $$2-1; else print $$1 "." $$2;}' VERSION > NEW
 	mv NEW VERSION
 	cat VERSION
 		
@@ -165,7 +165,7 @@ version-up:
 	cat VERSION
 		
 version-down:
-	awk -F. '{print $$1-1 "." 0' VERSION > NEW
+	awk -F. '{if($$1>0) print $$1-1 "." 0; else print $$1 "." 0;}' VERSION > NEW
 	mv NEW VERSION
 	cat VERSION
 	

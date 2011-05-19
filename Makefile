@@ -5,17 +5,19 @@ SERIF=KePTSerif
 SANSFILE=keptsans
 SERIFFILE=keptserif
 DOCUMENTS=OFL.txt OFL-FAQ.txt FONTLOG.txt
-TTFSANS=$(SANS)-Regular.ttf $(SANS)-Italic.ttf $(SANS)-Bold.ttf $(SANS)-BoldItalic.ttf \
+KEPTSANS=$(SANS)-Regular.ttf $(SANS)-Italic.ttf $(SANS)-Bold.ttf $(SANS)-BoldItalic.ttf \
 	$(SANS)-Narrow.ttf $(SANS)-NarrowBold.ttf $(SANS)-Caption.ttf $(SANS)-CaptionBold.ttf
-TTFSERIF=$(SERIF)-Regular.ttf $(SERIF)-Italic.ttf $(SERIF)-Bold.ttf $(SERIF)-BoldItalic.ttf \
+KEPTSERIF=$(SERIF)-Regular.ttf $(SERIF)-Italic.ttf $(SERIF)-Bold.ttf $(SERIF)-BoldItalic.ttf \
 	$(SERIF)-Caption.ttf $(SERIF)-CaptionItalic.ttf
+PTSANS=PTS55F.ttf PTS56F.ttf PTS75F.ttf PTS76F.ttf PTN57F.ttf PTN77F.ttf PTC55F.ttf PTC75F.ttf
+PTSERIF=PTF55F.ttf PTF56F.ttf PTF75F.ttf PTF76F.ttf PTZ55F.ttf PTZ56F.ttf
 FFSCRIPT=make-kept-fonts.ff
 
 ttf: ttf-sans ttf-serif
 
-ttf-sans: $(TTFSANS)
+ttf-sans: $(KEPTSANS)
 
-ttf-serif: $(TTFSERIF)
+ttf-serif: $(KEPTSERIF)
 
 webfonts-sans: OPT=--webfonts
 webfonts-sans: ttf-sans 
@@ -27,9 +29,9 @@ webfonts: OPT=--webfonts
 webfonts: webfonts-sans webfonts-serif
 
 all: webfonts
-	
-$(SANS)-Regular.ttf: $(FFSCRIPT) PTS55F.ttf
-	$(FFSCRIPT) $(OPT) --version $(VERSION) PTS55F.ttf
+
+$(KEPTSANS): $(FFSCRIPT) $(PTSANS)
+	$(FFSCRIPT) --format ttf --version $(VERSION) PTS55F.ttf
 	if [ -f $(SANS)-Regular.afm ]; then rm $(SANS)-Regular.afm; fi
 	if [ "$(OPT)" = "--webfonts" ]; then ttf2eot < $(SANS)-Regular.ttf > $(SANS)-Regular.eot; fi
 	
@@ -101,29 +103,29 @@ $(SERIF)-CaptionItalic.ttf: $(FFSCRIPT) PTZ56F.ttf
 dist-sans-ttf: ttf
 	cp FONTLOG-keptsans.txt FONTLOG.txt
 	cp OFL-keptsans.txt OFL.txt
-	zip keptsans-ttf-$(VERSION).zip  $(DOCUMENTS) $(TTFSANS)
+	zip keptsans-ttf-$(VERSION).zip  $(DOCUMENTS) $(KEPTSANS)
 	rm FONTLOG.txt OFL.txt
 
 dist-serif-ttf: ttf
 	cp FONTLOG-keptserif.txt FONTLOG.txt
 	cp OFL-keptserif.txt OFL.txt
-	zip keptserif-ttf-$(VERSION).zip  $(DOCUMENTS) $(TTFSERIF)
+	zip keptserif-ttf-$(VERSION).zip  $(DOCUMENTS) $(KEPTSERIF)
 	rm FONTLOG.txt OFL.txt
 	
 dist-sans-web: webfonts-sans
 	cp FONTLOG-keptsans.txt FONTLOG.txt
 	cp OFL-keptsans.txt OFL.txt
-	zip keptsans-ttf-$(VERSION).zip  $(DOCUMENTS) $(TTFSANS)
-	zip keptsans-web-$(VERSION).zip  $(DOCUMENTS) $(TTFSANS) $(TTFSANS:.ttf=.woff) \
-		$(TTFSANS:.ttf=.svg) $(TTFSANS:.ttf=.eot)
+	zip keptsans-ttf-$(VERSION).zip  $(DOCUMENTS) $(KEPTSANS)
+	zip keptsans-web-$(VERSION).zip  $(DOCUMENTS) $(KEPTSANS) $(KEPTSANS:.ttf=.woff) \
+		$(KEPTSANS:.ttf=.svg) $(KEPTSANS:.ttf=.eot)
 	rm FONTLOG.txt OFL.txt	
 
 dist-serif-web: webfonts-serif
 	cp FONTLOG-keptserif.txt FONTLOG.txt
 	cp OFL-keptserif.txt OFL.txt
-	zip keptserif-ttf-$(VERSION).zip  $(DOCUMENTS) $(TTFSERIF)
-	zip keptserif-web-$(VERSION).zip  $(DOCUMENTS) $(TTFSERIF) $(TTFSERIF:.ttf=.woff) \
-		$(TTFSERIF:.ttf=.svg) $(TTFSERIF:.ttf=.eot)
+	zip keptserif-ttf-$(VERSION).zip  $(DOCUMENTS) $(KEPTSERIF)
+	zip keptserif-web-$(VERSION).zip  $(DOCUMENTS) $(KEPTSERIF) $(KEPTSERIF:.ttf=.woff) \
+		$(KEPTSERIF:.ttf=.svg) $(KEPTSERIF:.ttf=.eot)
 	rm FONTLOG.txt OFL.txt
 	
 dist-ttf: dist-sans-ttf dist-serif-ttf
@@ -137,14 +139,14 @@ dist: dist-web
 .PHONY: clean ttfclean distclean
 
 clean:
-	if [ -f KePTSans-Regular.ttf ]; then rm $(TTFSANS) $(TTFSANS:.ttf=.sfd); fi
-	if [ -f KePTSerif-Regular.ttf ]; then rm $(TTFSERIF) $(TTFSERIF:.ttf=.sfd); fi
-	if [ -f KePTSans-Regular.woff ]; then rm $(TTFSANS:.ttf=.woff) $(TTFSANS:.ttf=.eot) $(TTFSANS:.ttf=.svg); fi
-	if [ -f KePTSerif-Regular.woff ]; then rm $(TTFSERIF:.ttf=.woff)  $(TTFSERIF:.ttf=.eot) $(TTFSERIF:.ttf=.svg); fi
+	if [ -f KePTSans-Regular.ttf ]; then rm $(KEPTSANS) $(KEPTSANS:.ttf=.sfd); fi
+	if [ -f KePTSerif-Regular.ttf ]; then rm $(KEPTSERIF) $(KEPTSERIF:.ttf=.sfd); fi
+	if [ -f KePTSans-Regular.woff ]; then rm $(KEPTSANS:.ttf=.woff) $(KEPTSANS:.ttf=.eot) $(KEPTSANS:.ttf=.svg); fi
+	if [ -f KePTSerif-Regular.woff ]; then rm $(KEPTSERIF:.ttf=.woff)  $(KEPTSERIF:.ttf=.eot) $(KEPTSERIF:.ttf=.svg); fi
 	
 ttfclean:
-	if [ -f KePTSans-Regular.ttf ]; then rm $(TTFSANS) $(TTFSANS:.ttf=.sfd); fi
-	if [ -f KePTSerif-Regular.ttf ]; then rm $(TTFSERIF) $(TTFSERIF:.ttf=.sfd); fi	
+	if [ -f KePTSans-Regular.ttf ]; then rm $(KEPTSANS) $(KEPTSANS:.ttf=.sfd); fi
+	if [ -f KePTSerif-Regular.ttf ]; then rm $(KEPTSERIF) $(KEPTSERIF:.ttf=.sfd); fi	
 
 distclean: clean
 	-rm *.zip

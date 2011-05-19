@@ -40,6 +40,11 @@ while ( i < $argc )
 		if ( i < $argc && FileAccess($argv[i]) == 0 )
 			outdir = $argv[i]+"/"; //New output subdirectory. Must exist 
 		endif
+	elseif ( $argv[i]=="-f" || $argv[i]=="--format" )
+		i = i + 1;
+		if ( i < $argc )
+			ext = $argv[i]; //Extention of font format to Generate
+		endif
 	elseif ( $argv[i]=="-h" || $argv[i]=="--help" )	
 		Print(" \nUsage: make-kept-fonts.ff [OPTION]... [FILE]...");
 		Print("Adds Bulgarian & Macedonian accented letters to PT fonts");
@@ -196,12 +201,15 @@ while ( i < $argc )
 			//AutoInstr();
 
 			# Save & Generate The New Font
-			Save(outdir+newfontname+".sfd");
-			Generate(outdir+newfontname+".ttf");
-			if ( webfonts )
+			Generate(outdir+newfontname+"."+ext);
+			if ( ext=="ttf" )
+				Save(outdir+newfontname+".sfd"); //Save .sfd file when generating .ttf
+			endif
+/*			if ( webfonts )
 				Generate(outdir+newfontname+".woff");
 				Generate(outdir+newfontname+".svg");
 			endif
+*/
 			Print(" \n"+newfontname+" saved & generated! \n ");
 			s = s + 1;
 		endif

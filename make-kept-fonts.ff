@@ -43,7 +43,7 @@ while ( i < $argc )
 	elseif ( $argv[i]=="-f" || $argv[i]=="--format" )
 		i = i + 1;
 		if ( i < $argc )
-			ext = $argv[i]; //Extention of font format to Generate
+			ext = $argv[i]; //Extension of font format to Generate
 		endif
 	elseif ( $argv[i]=="-h" || $argv[i]=="--help" )	
 		Print(" \nUsage: make-kept-fonts.ff [OPTION]... [FILE]...");
@@ -201,9 +201,10 @@ while ( i < $argc )
 			//AutoInstr();
 
 			# Save & Generate The New Font
-			Generate(outdir+newfontname+"."+ext);
-			if ( ext=="ttf" )
-				Save(outdir+newfontname+".sfd"); //Save .sfd file when generating .ttf
+			if ( ext=="sfd" )
+				Save(outdir+newfontname+".sfd"); //If extension is .sfd - save it
+			else
+				Generate(outdir+newfontname+"."+ext); //else - generate needed font file
 			endif
 /*			if ( webfonts )
 				Generate(outdir+newfontname+".woff");

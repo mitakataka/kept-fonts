@@ -12,8 +12,18 @@ KEPTSERIF=$(SERIF)-Regular.ttf $(SERIF)-Italic.ttf $(SERIF)-Bold.ttf $(SERIF)-Bo
 PTSANS=PTS55F.ttf PTS56F.ttf PTS75F.ttf PTS76F.ttf PTN57F.ttf PTN77F.ttf PTC55F.ttf PTC75F.ttf
 PTSERIF=PTF55F.ttf PTF56F.ttf PTF75F.ttf PTF76F.ttf PTZ55F.ttf PTZ56F.ttf
 FFSCRIPT=make-kept-fonts.ff
+k1=t1.ttf
+k1src=s4.ttf
+k2=t2.ttf
+k2src=s5.ttf
+files=k1 k2
 
 ttf: ttf-sans ttf-serif
+
+proba:
+	echo '$(foreach font,$(files),$(font):$(font)src\
+		echo '$$(font)=script $$(font)src')\n'
+	 
 
 ttf-sans: $(KEPTSANS)
 

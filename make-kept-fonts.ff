@@ -7,6 +7,7 @@ version = "1.1"; //After releasing new font version - change version to the next
 newcopyholder = "Mitaka";
 projecturl = "http://kept-fonts.googlecode.com"; //"mitakataka@mail.bg"
 eol = Strsub("$\n",1,2); //End Of Line
+ext = "ttf-sfd"; //Normaly Save .sfd and Generate .ttf
 webfonts = 0;
 
 # If there is 'out' subdirectory - the new fonts will be written there by default...
@@ -201,16 +202,19 @@ while ( i < $argc )
 			//AutoInstr();
 
 			# Save & Generate The New Font
-			if ( ext=="sfd" )
-				Save(outdir+newfontname+".sfd"); //If extension is .sfd - save it
+			if ( ext=="ttf-sfd" )
+				Save(outdir+newfontname+".sfd"); //Normaly Save and Generate :)	
+				Generate(outdir+newfontname+".ttf");		
+			elseif ( ext=="sfd" )
+				Save(outdir+newfontname+"."+ext); //If extension is .sfd - save it
 			else
 				Generate(outdir+newfontname+"."+ext); //else - generate needed font file
 			endif
-/*			if ( webfonts )
+			if ( webfonts )
 				Generate(outdir+newfontname+".woff");
 				Generate(outdir+newfontname+".svg");
 			endif
-*/
+
 			Print(" \n"+newfontname+" saved & generated! \n ");
 			s = s + 1;
 		endif

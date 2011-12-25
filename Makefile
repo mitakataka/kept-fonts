@@ -114,8 +114,8 @@ dist-serif-ttf: ttf-serif
 	if [ -d $(SERIF)-$(VERSION) ]; then rm -r $(SERIF)-$(VERSION); fi
 	mkdir $(SERIF)-$(VERSION)
 	cp README.txt $(SERIF)-$(VERSION)/README.txt
-	cp FONTLOG-keptsans.txt $(SERIF)-$(VERSION)/FONTLOG.txt
-	cp OFL-keptsans.txt $(SERIF)-$(VERSION)/OFL.txt
+	cp FONTLOG-keptserif.txt $(SERIF)-$(VERSION)/FONTLOG.txt
+	cp OFL-keptserf.txt $(SERIF)-$(VERSION)/OFL.txt
 	cp OFL-FAQ.txt $(SERIF)-$(VERSION)/OFL-FAQ.txt
 	cp $(KEPTSERIF:.sfd=.ttf) $(SERIF)-$(VERSION)/
 	zip $(PKGSERIF)-ttf-$(VERSION).zip  $(SERIF)-$(VERSION)/*
@@ -137,8 +137,8 @@ dist-serif-web: webfonts-serif dist-serif-ttf
 	if [ -d $(SERIF)-$(VERSION) ]; then rm -r $(SERIF)-$(VERSION); fi
 	mkdir $(SERIF)-$(VERSION)
 	cp README.txt $(SERIF)-$(VERSION)/README.txt
-	cp FONTLOG-keptsans.txt $(SERIF)-$(VERSION)/FONTLOG.txt
-	cp OFL-keptsans.txt $(SERIF)-$(VERSION)/OFL.txt
+	cp FONTLOG-keptserif.txt $(SERIF)-$(VERSION)/FONTLOG.txt
+	cp OFL-keptserif.txt $(SERIF)-$(VERSION)/OFL.txt
 	cp OFL-FAQ.txt $(SERIF)-$(VERSION)/OFL-FAQ.txt
 	cp $(KEPTSERIF:.sfd=.ttf)  $(KEPTSERIF:.sfd=.woff) $(KEPTSERIF:.sfd=.svg) $(KEPTSERIF:.sfd=.eot) $(SERIF)-$(VERSION)/
 	zip $(PKGSERIF)-web-$(VERSION).zip  $(SERIF)-$(VERSION)/*
@@ -163,8 +163,8 @@ dist-serif-sfd:
 	if [ -d $(SERIF)-$(VERSION) ]; then rm -r $(SERIF)-$(VERSION); fi
 	mkdir $(SERIF)-$(VERSION)
 	cp README.txt $(SERIF)-$(VERSION)/README.txt
-	cp FONTLOG-keptsans.txt $(SERIF)-$(VERSION)/FONTLOG.txt
-	cp OFL-keptsans.txt $(SERIF)-$(VERSION)/OFL.txt
+	cp FONTLOG-keptserif.txt $(SERIF)-$(VERSION)/FONTLOG.txt
+	cp OFL-keptserif.txt $(SERIF)-$(VERSION)/OFL.txt
 	cp OFL-FAQ.txt $(SERIF)-$(VERSION)/OFL-FAQ.txt
 	cp $(KEPTSERIF) $(SERIF)-$(VERSION)/
 	zip $(PKGSERIF)-sfd-$(VERSION).zip  $(SERIF)-$(VERSION)/*

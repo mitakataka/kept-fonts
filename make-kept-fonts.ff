@@ -2,92 +2,13 @@
 # Adds Bulgarian and Macedonian cyrillic igrave and egrave to PT fonts ;)
 # If there is 'out' subdirectory - new fonts will be written there by default...
 
-/* Copyright (c) 2011 Mitaka.
- * You just DO WHAT THE FUCK YOU WANT TO with this script which comes without any warranty.
- */
- 
-/* This program is free software. It comes without any warranty, to
- * the extent permitted by applicable law. You can redistribute it
- * and/or modify it under the terms of the Do What The Fuck You Want
- * To Public License, Version 2, as published by Sam Hocevar. See
- * http://sam.zoy.org/wtfpl/COPYING for more details. 
- */
- 
-/* No copyright 2011 by Mitaka. No rights reserved.
- * This is free and unencumbered software released into the public domain.
- * If this is not possible, you just DO WHAT THE FUCK YOU WANT TO with this script.
- * It is distributed without any warranty, to the extent permitted by applicable law. 
- */
-
-/* No copyright 2011 by Mitaka. No rights reserved.
- * This script really is in the public domain as its author has released
- * it into the public domain. If this is not possible, the author grants 
- * anyone the right to use this work for any purpose, without any conditions, 
- * unless such conditions are required by law. It is distributed without 
- * any warranty, to the extent permitted by applicable law.
- */
-
-/* No copyright (0)2011 by Mitaka. No rights reserved.
- * 
- * To the extent possible under law, the person who associated CC0 with
- * this script has waived all copyright and related or neighboring rights
- * to the script to the public domain worldwide. This software is 
- * distributed without any warranty.
- *
- * You should have received a copy of the CC0 legalcode along with this
- * work.  If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
- */
- 
-/* No copyright 2011 by Mitaka. No rights reserved.
- * 
- * This is free and unencumbered software released into the public domain.
- * 
- * Anyone is free to copy, modify, publish, use, compile, sell, or
- * distribute this software, either in source code form or as a compiled
- * binary, for any purpose, commercial or non-commercial, and by any
- * means.
- * 
- * In jurisdictions that recognize copyright laws, the author or authors
- * of this software dedicate any and all copyright interest in the
- * software to the public domain. We make this dedication for the benefit
- * of the public at large and to the detriment of our heirs and
- * successors. We intend this dedication to be an overt act of
- * relinquishment in perpetuity of all present and future rights to this
- * software under copyright law.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
- * IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- * OTHER DEALINGS IN THE SOFTWARE.
- * 
- * For more information, please refer to <http://unlicense.org/>
- */
- 
 /* Copyright (c) 2011 Mitaka
- * 
- * Permission is hereby granted, free of charge, to any person obtaining
- * a copy of this software and associated documentation files (the
- * "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish,
- * distribute, sublicense, and/or sell copies of the Software, and to
- * permit persons to whom the Software is furnished to do so, subject to
- * the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included
- * in all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
- * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
- * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
- * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
- * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * Copying and distribution of this file, with or without modification,
+ * are permitted in any medium without royalty provided the copyright
+ * notice and this notice are preserved.  This file is offered as-is,
+ * without any warranty.
  */
- 
+
 newsuperfamily  = "KePT"; //The default new font superfamily name
 version = "1.1"; //After releasing new font version - change version to the next version number
 newcopyholder = "Mitaka";
@@ -183,6 +104,7 @@ while ( i < $argc )
 			familynametail = Strsub(familynametail,0,pos);
 			newmainfamily = newsuperfamily+' '+familynametail;
 
+			copyright1	 = GetTTFName(0x409, 0);
 			copyrightaddition1 = "Copyright © 2011 "+newcopyholder+" ("+projecturl+").";
 			copyrightaddition2 = "Copyright (c) 2011, "+newcopyholder+" ("+projecturl+").";
 			newcopyright = $copyright+" \n"+copyrightaddition1;
@@ -214,6 +136,7 @@ while ( i < $argc )
 */	
 			# Change Font Information
 			SetFontNames(newfontname, newfamilyname, newfullname, $weight, newcopyright, newfontversion);
+			SetTTFName(0x409, 0, copyright1+" \n"+copyrightaddition1); //Set UniqueID
 			SetTTFName(0x409, 3, newcopyholder+": "+newfullname+": "+newfontversion); //Set UniqueID
 			SetTTFName(0x409, 5, "Version "+newfontversion); //Set 'Version'
 			SetTTFName(0x409, 18, newfullname); //Set 'Compatible Full'

@@ -12,9 +12,9 @@ You can think of "KePT" as a recursive acronym for "KePT is an Extended Public T
 
 KePT Sans и KePT Serif са разширение на шрифтовете PT Sans и PT Serif под [SIL Open Font License 1.1](http://scripts.sil.org/cms/scripts/page.php?item_id=OFL):
 
-  * добавени са 'ѝ' използвано в български и македонски и 'ѐ' използвано в македонския (v1.0); 
-  * добавено е тежко ударение ( ` combining grave accent) нужно за български и македонски език (v1.1);
-  * коригирана е позицията на острото ударение (  combining acute accent) на някои от шрифтовете (v1.1). 
+  - добавени са 'ѝ' използвано в български и македонски и 'ѐ' използвано в македонския (v1.0); 
+  - добавено е тежко ударение ( ` combining grave accent) нужно за български и македонски език (v1.1);
+  - коригирана е позицията на острото ударение (  combining acute accent) на някои от шрифтовете (v1.1). 
 ----
 _Може да мислите за "KePT" като за рекурсивно съкращение:_<br>
 *KePT = KePT is an Extended Public Type*<br>

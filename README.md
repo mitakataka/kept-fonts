@@ -1,6 +1,6 @@
 kept-fonts
 ==========
-*Balkan extension of PT fonts*
+*(Balkan extension of PT fonts)*
 
 KePT Sans and KePT Serif are balkan extension of PT Sans and PT Serif fonts, licensed under the [SIL Open Font License 1.1](http://scripts.sil.org/cms/scripts/page.php?item_id=OFL).
 
@@ -20,5 +20,5 @@ KePT Sans и KePT Serif са разширение на шрифтовете PT S
 ----
 _Може да мислите за "KePT" като за рекурсивно съкращение:_<br>
 *KePT = KePT is an Extended Public Type*<br>
-http://www.paratype.com/extpics/PTSans-free.gif<br>
+<img href="http://www.paratype.com/extpics/PTSans-free.gif"><br>
 — [От обявяването на PT Sans](http://paratype.livejournal.com/10009.html)
